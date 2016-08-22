@@ -1,46 +1,42 @@
 package org.kirinsan.hydrogenbooster;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
-import org.xwalk.core.XWalkView;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Receiver;
 
+@EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
-    private XWalkView webView;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        webView = (XWalkView) findViewById(R.id.webView);
-
-        webView.load("file:///android_asset/index.html", null);
+    @AfterViews
+    void init() {
+        toSplash();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        webView.evaluateJavascript("start();", null);
+    /**
+     * Go to splash screen.
+     */
+    private void toSplash() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, SplashFragment_.builder().build())
+                .commit();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        webView.evaluateJavascript("stop();", null);
+    /**
+     * Go to hydrogen screen.
+     */
+    private void toHydrogen() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, HydrogenFragment_.builder().build())
+                .commit();
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            webView.setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        }
+    /**
+     * Called when splash screen is timed out.
+     */
+    @Receiver(actions = SplashFragment.ACTION_SPLASH_END, local = true)
+    void onSplashEnd() {
+        toHydrogen();
     }
 }
