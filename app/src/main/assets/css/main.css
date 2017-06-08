@@ -69,7 +69,7 @@ body {
   -webkit-transition: all 2s cubic-bezier(0.49, -0.38, 0, 1.73) 0s;
           transition: all 2s cubic-bezier(0.49, -0.38, 0, 1.73) 0s; }
   #sight.turnblue {
-    background-color: #8bd3ff; }
+    background-color: #ff8bd3; }
   #sight.dialog {
     border-radius: 16px;
     width: 400px;
