@@ -1,4 +1,4 @@
-package org.kirinsan.hydrogenbooster;
+package org.kirinsan.oxygenwater;
 
 import android.support.v7.app.AppCompatActivity;
 

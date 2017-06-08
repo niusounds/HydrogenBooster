@@ -1,4 +1,4 @@
-package org.kirinsan.hydrogenbooster;
+package org.kirinsan.oxygenwater;
 
 import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
